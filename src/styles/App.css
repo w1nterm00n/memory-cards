@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    background-color: #EBF3DB;
+}
+
+header{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 30px 250px 30px 250px;
+}
+
+.scoreBoard{
+    background-color: #EFF7EA;
+    width: 300px;
+    border: 1px solid black;
+    color: #122400;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0 20px 20px;
+    font-weight: bold;
+}
+
+.cardsContainer{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    row-gap: 30px;
+    column-gap: 30px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+@media (max-width: 1450px) {
+    .cardsContainer {
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+    }
+    header{
+        padding: 30px 150px 30px 150px;
+    }
+}
+
+@media (max-width: 900px) {
+    .cardsContainer {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 15px;
+        column-gap: 15px;
+    }
+    header{
+        padding: 20px 50px 20px 50px;
+    }
+}
