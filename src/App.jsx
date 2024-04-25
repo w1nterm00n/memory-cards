@@ -59,6 +59,47 @@ function App() {
   }, [])
 
 
+  //Переворачивание двух карт
+  //эта переменная нужна чтобы проверять, сколько карт сейчас перевернуто
+  const [openedCards, setOpenedCards] = useState([]);
+
+  let cardFlip = function (id, setIsReversed) {
+    for (let i=0; i<openedCards.length; i++){
+      if (openedCards[i].id === id) {
+        openedCards[0].setIsReversed(false);  //чтобы нельзя было открывать и закрывать одну карточку
+        return;
+      }
+    }
+    // if (openedCards.length > 1) {
+    //     //происходит когда открывают третью карту
+    //     console.log(openedCards);
+    //     let newOpenedCards = [];
+    //     for (let i=0; i<2; i++){
+    //       newOpenedCards.push(openedCards[i]);
+    //     }
+    //     setOpenedCards(newOpenedCards); //в массиве остаются первые две
+    //   return;
+    // }
+    setOpenedCards(prevCards => [...prevCards, { id, setIsReversed }]);
+  }
+
+  //если открыта только одна карта, и её пытаются закрыть
+  
+
+  useEffect(() => {
+    console.log(openedCards);
+    if (openedCards.length === 2) {
+      const [firstCard, secondCard] = openedCards;
+            setTimeout(() => {
+              setCurrentScore(currentScore + 1);
+              firstCard.setIsReversed(true);
+              secondCard.setIsReversed(true);
+              setOpenedCards([]);
+          }, 1000);
+    }
+  }, [openedCards])
+//Переворачивание двух карт
+
   return (
     <>
       <header>
@@ -71,7 +112,7 @@ function App() {
 
       <div className='cardsContainer'>
         {cards.map((card) => (
-          <Card className="flexItem" key={card.key} image={card.img} caption={card.caption}/>
+          <Card className="flexItem" key={card.key} id={card.key} image={card.img} caption={card.caption} cardFlip={cardFlip}/>
         ))}
       </div>
     </>
