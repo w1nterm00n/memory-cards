@@ -70,24 +70,15 @@ function App() {
         return;
       }
     }
-    // if (openedCards.length > 1) {
-    //     //происходит когда открывают третью карту
-    //     console.log(openedCards);
-    //     let newOpenedCards = [];
-    //     for (let i=0; i<2; i++){
-    //       newOpenedCards.push(openedCards[i]);
-    //     }
-    //     setOpenedCards(newOpenedCards); //в массиве остаются первые две
-    //   return;
-    // }
+    if (openedCards.length > 1) {
+        let newCard = { id, setIsReversed };
+        newCard.setIsReversed(true); //чтобы нельзя было открывать третью карточку
+      return;
+    }
     setOpenedCards(prevCards => [...prevCards, { id, setIsReversed }]);
   }
-
-  //если открыта только одна карта, и её пытаются закрыть
   
-
   useEffect(() => {
-    console.log(openedCards);
     if (openedCards.length === 2) {
       const [firstCard, secondCard] = openedCards;
             setTimeout(() => {
