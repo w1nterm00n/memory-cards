@@ -127,7 +127,7 @@ function App() {
 useEffect(() => {
   if ((guessedCards.length === cards.length) && (cards.length != 0)) {
     document.getElementById("gameOver").style = "display: flex";
-    if (currentScore < bestScore) setBestScore(currentScore);
+    if ((currentScore < bestScore) || (bestScore == 0)) setBestScore(currentScore);
   }
 }, [guessedCards])
 

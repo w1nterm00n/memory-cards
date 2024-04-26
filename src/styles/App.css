@@ -63,6 +63,7 @@ header{
     font-size: 40px;
     color: #D9D9D9;
     font-weight: 700;
+    text-align: center;
 }
 
 @media (max-width: 1450px) {
