@@ -112,15 +112,21 @@ function App() {
   }
 //Переворачивание двух карт
 
-let hideCard = function(id) {
+  let hideCard = function(id) {
   const card = document.getElementById(id);
   card.style = "opacity: 0";
 }
 
+  function restart () {
+    document.getElementById("gameOver").style = "display: none";
+    setGuessedCards([]);
+    setCurrentScore(0);
+    loadCards();
+  };
+
 useEffect(() => {
   if ((guessedCards.length === cards.length) && (cards.length != 0)) {
-    let gameOverBoard = document.getElementById("gameOver");
-    gameOverBoard.style = "display: flex";
+    document.getElementById("gameOver").style = "display: flex";
     if (currentScore < bestScore) setBestScore(currentScore);
   }
 }, [guessedCards])
@@ -129,7 +135,7 @@ useEffect(() => {
     <>
       <header>
         <h1>Memory Cards</h1>
-        <button className='restartBtn'>Restart</button>
+        <button className='restartBtn' onClick={restart}>Restart</button>
         <div className='scoreBoard'>
           <p>Current Score: {currentScore}</p>
           <p>Best Score: {bestScore}</p>
