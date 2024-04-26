@@ -11,6 +11,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [guessedCards, setGuessedCards] = useState([]);
 
   //функция, которая берет id, и возвращает объект карточки
   async function fetchCard (id) {
@@ -22,6 +23,7 @@ function App() {
           return {
               caption: data.alt_description,
               img: data.urls.small,
+              id: id,
           };
   };
 
@@ -30,7 +32,6 @@ function App() {
     newCards = makeArrayOfCards(newCards);
     setCards(newCards);
   };
-
 
   let makeArrayOfCards = function (array) {
     let newArray = [];
@@ -58,9 +59,8 @@ function App() {
     loadCards();
   }, [])
 
-
   //Переворачивание двух карт
-  //эта переменная нужна чтобы проверять, сколько карт сейчас перевернуто
+  //openedCards - эта переменная нужна чтобы проверять, сколько карт сейчас перевернуто
   const [openedCards, setOpenedCards] = useState([]);
 
   let cardFlip = function (id, setIsReversed) {
@@ -85,11 +85,44 @@ function App() {
               setCurrentScore(currentScore + 1);
               firstCard.setIsReversed(true);
               secondCard.setIsReversed(true);
+              let isSame = findSameCards(firstCard.id, secondCard.id);
+              if (isSame) {
+                setGuessedCards(prevCards => [...prevCards, firstCard, secondCard]);
+                hideCard(firstCard.id);
+                hideCard(secondCard.id);
+              }
               setOpenedCards([]);
           }, 1000);
     }
   }, [openedCards])
+
+  let findSameCards = function (key1, key2) {
+    let card1, card2;
+    for (let i=0; i<cards.length; i++){
+      if (cards[i].key === key1) {
+        card1 = cards[i]
+      } else if (cards[i].key === key2) {
+        card2 = cards[i]
+      }
+    }
+    if (card1.id === card2.id) {
+      return (true);
+    }
+    return(false);
+  }
 //Переворачивание двух карт
+
+let hideCard = function(id) {
+  const card = document.getElementById(id);
+  card.style = "opacity: 0";
+}
+
+useEffect(() => {
+  if ((guessedCards.length === cards.length) && (cards.length != 0)) {
+    alert("game over");
+    if (currentScore < bestScore) setBestScore(currentScore);
+  }
+}, [guessedCards])
 
   return (
     <>

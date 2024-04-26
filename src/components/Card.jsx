@@ -9,7 +9,7 @@ function Card ({id, image, caption, cardFlip}) {
         cardFlip(id, setIsReversed);   //передаёт, какая карта открылась
     };
     return (
-        <div className={isReversed ? "card reversed" : "card"} onClick={handleClick}>
+        <div className={isReversed ? "card reversed" : "card"} onClick={handleClick} id={id}>
             <div className="imageWrapper" style={{ backgroundImage: `url(${image})`, 
             backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
             </div>
