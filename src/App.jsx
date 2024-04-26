@@ -119,7 +119,8 @@ let hideCard = function(id) {
 
 useEffect(() => {
   if ((guessedCards.length === cards.length) && (cards.length != 0)) {
-    alert("game over");
+    let gameOverBoard = document.getElementById("gameOver");
+    gameOverBoard.style = "display: flex";
     if (currentScore < bestScore) setBestScore(currentScore);
   }
 }, [guessedCards])
@@ -127,12 +128,17 @@ useEffect(() => {
   return (
     <>
       <header>
-        <h1>Something</h1>
+        <h1>Memory Cards</h1>
+        <button className='restartBtn'>Restart</button>
         <div className='scoreBoard'>
           <p>Current Score: {currentScore}</p>
           <p>Best Score: {bestScore}</p>
         </div>
       </header>
+
+      <div id='gameOver'>
+        <p>Game over</p>
+      </div>
 
       <div className='cardsContainer'>
         {cards.map((card) => (
